@@ -1,6 +1,9 @@
 
 var renderer, scene, camera;
 
+// kappa
+var blueCube, redCube, yellowCube;
+
 function initialize() {
 
     renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -9,20 +12,33 @@ function initialize() {
 
     document.getElementById('gameDiv').appendChild(renderer.domElement);
 
-    // scene.add(new THREE.AmbientLight(0xeef0ff));
-    // scene.add(generateLight());
     scene.add(generateGround());
 
     camera.position.y = -50;
     camera.rotation.x = 150 * (Math.PI/180);
 
-    animate();
-}
+    // Blue Cube
+    var geometry = new THREE.BoxGeometry( 50, 50, 50 );
+    var material = new THREE.MeshBasicMaterial( { color: 0x0000ff } );
+    blueCube = new THREE.Mesh( geometry, material );
+    blueCube.position.x -= 200;
+    blueCube.position.z += 200;
+    scene.add( blueCube );
+    // Red Cube
+    var geometry = new THREE.BoxGeometry( 50, 50, 50 );
+    var material = new THREE.MeshBasicMaterial( { color: 0xff0000 } );
+    redCube = new THREE.Mesh( geometry, material );
+    redCube.position.x += 200;
+    redCube.position.z += 200;
+    scene.add( redCube );
+    // Yellow Cube
+    var geometry = new THREE.BoxGeometry( 50, 50, 50 );
+    var material = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
+    yellowCube = new THREE.Mesh( geometry, material );
+    yellowCube.position.x -= 200;
+    scene.add( yellowCube );
 
-function generateLight() {
-    var light = new THREE.DirectionalLight(0xffffff);
-    // light.position.set( 0, 0, 0 ).normalize();
-    return light;
+    animate();
 }
 
 function generateGround() {
@@ -46,34 +62,17 @@ function animate(){
 
 function cameraPhysics()
 {
-    if (Key.isDown(Key.A))      
-    {
-        camera.rotation.z += 0.1;
-    }
-    if (Key.isDown(Key.D))      
-    {
-        camera.rotation.z -= 0.1;
-    }
-    if (Key.isDown(Key.W))      
-    {
-        camera.rotation.x -= 0.1;
-    }
-    if (Key.isDown(Key.S))      
-    {
-        camera.rotation.x += 0.1;
-    }
-
     var pc = Mouse.panCamera();
-    if (pc == Mouse.UP){
+    if (pc == Mouse.UP || Key.isDown(Key.W)){
         camera.position.z += 5;
     }
-    if (pc == Mouse.DOWN){
+    if (pc == Mouse.DOWN || Key.isDown(Key.S)){
         camera.position.z -= 5;
     }
-    if (pc == Mouse.LEFT){
+    if (pc == Mouse.LEFT || Key.isDown(Key.A)){
         camera.position.x -= 5;
     }
-    if (pc == Mouse.RIGHT){
+    if (pc == Mouse.RIGHT || Key.isDown(Key.D)){
         camera.position.x += 5;
     }
 
