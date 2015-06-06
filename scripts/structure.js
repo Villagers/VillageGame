@@ -6,36 +6,51 @@ var Structure = {
     },
 
     generate: function(){
-        geom = new THREE.BoxGeometry( 50, 50, 50 ),
-        mat = new THREE.MeshBasicMaterial({color:0xff0000}),
-        cube = new THREE.Mesh( geom, mat ),
+        var geom = new THREE.BoxGeometry( 50, 50, 50 ),
+            mat = new THREE.MeshBasicMaterial({color:0xff0000}),
+            cube = new THREE.Mesh( geom, mat );
         cube.position.x -= 200,
         buildings.add( cube );
         var mat = new THREE.MeshBasicMaterial({color:0xff0000});
         var cube = new THREE.Mesh( geom, mat );
+        console.log('init1' + cube.position.x + ' ' + cube.position.y);
         cube.position.x += 200;
         buildings.add( cube );
         scene.add(buildings);
+        console.log('final1 ' + cube.position.x + ' ' + cube.position.y);
+
+    },
+
+    construct: function(x, y){
+        console.log(x + ", " + y);
+        var geom = new THREE.BoxGeometry( 50, 50, 50 ),
+            mat = new THREE.MeshBasicMaterial({color:0xff0000}),
+            cube = new THREE.Mesh( geom, mat );
+        cube.position.x = x;
+        cube.position.y = y;
+        buildings.add(cube);
+        scene.add(buildings);
+        console.log('final2 ' + cube.position.x + ' ' + cube.position.y);
     },
 
     movement: function(){
-        var raycaster = new THREE.Raycaster();
-        var mouseVector = new THREE.Vector2();
-        var offset = new THREE.Vector3();
-        
-        mouseVector.x = ( Mouse._coords[0] / window.innerWidth ) * 2 - 1;
-        mouseVector.y = - ( Mouse._coords[1] / window.innerHeight ) * 2 + 1;
+        // var raycaster = new THREE.Raycaster();
+        // var mouseVector = new THREE.Vector2();
+        // var offset = new THREE.Vector3();
 
-        raycaster.setFromCamera( mouseVector, camera );
-        var intersects = raycaster.intersectObjects( buildings.children );
+        // mouseVector.x = ( Mouse._coords[0] / window.innerWidth ) * 2 - 1;
+        // mouseVector.y = - ( Mouse._coords[1] / window.innerHeight ) * 2 + 1;
 
-        buildings.children.forEach(function( cube ) {
-                cube.material.color.set( 0xff0000 );
-        });
+        // raycaster.setFromCamera( mouseVector, camera );
+        // var intersects = raycaster.intersectObjects( buildings.children );
 
-        for ( var i = 0; i < intersects.length; i++ ) {
-            intersects[ i ].object.material.color.set( 0xffffff );
-        }
+        // buildings.children.forEach(function( cube ) {
+        //         cube.material.color.set( 0xff0000 );
+        // });
+
+        // for ( var i = 0; i < intersects.length; i++ ) {
+        //     intersects[ i ].object.material.color.set( 0xffffff );
+        // }
 
         // if(Mouse._leftButton == true){
         //     var vector = new THREE.Vector3( mouseVector.x, mouseVector.y, 0.5 ).unproject( camera );
