@@ -24,7 +24,7 @@ function generateLight() {
 
 function generateGround() {
     var geometry = new THREE.BoxGeometry( 10, 10, 10);
-    var texture = THREE.ImageUtils.loadTexture("resources/images/worldmap800.jpg");
+    var texture = THREE.ImageUtils.loadTexture("resources/images/biggum.jpg");
 
     var material = new THREE.MeshBasicMaterial( { map: texture, side: THREE.DoubleSide } );
     var mesh = new THREE.Mesh( geometry, material );
@@ -80,9 +80,9 @@ function cameraPhysics()
 
     var sc = Mouse.scrollCamera();
     if(sc == Mouse.OUT){
-        camera.position.y -= 0.1;
+        camera.position.z -= 1;
     }
     if(sc == Mouse.IN){
-        camera.position.y += 0.1;
+        camera.position.z += 1;
     }
 }

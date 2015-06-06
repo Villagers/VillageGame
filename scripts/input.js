@@ -49,18 +49,20 @@ var Mouse = {
     },
 
     panCamera: function(){
-        // if(this._coords[1] < 30){
-        //     return this.UP;
-        // }
-        // if(this._coords[1] > 500){
-        //     return this.DOWN;
-        // }
-        // if(this._coords[0] < 350){
-        //     return this.LEFT;
-        // }
-        // if(this._coords[0] > 1100){
-        //     return this.RIGHT;
-        // }
+        // console.log(this._coords[0]);
+        if(this._coords[1] < 1){
+            return this.UP;
+        }
+        if(this._coords[1] >= window.innerHeight - 1){
+            return this.DOWN;
+        }
+        if(this._coords[0] < 1){
+            return this.LEFT;
+        }
+        // console.log(window.innerWidth)
+        if(this._coords[0] >= window.innerWidth - 1){
+            return this.RIGHT;
+        }
         return this.NONE;
     },
 
