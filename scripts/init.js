@@ -96,7 +96,6 @@ function onKeyFrame(){
     gameLogic.detectCameraMovement();
     if(Mouse._leftButton) {
         gameLogic.placeBuilding(camera.view, plane);
-        console.log('Building Placed');
         Mouse._leftButton = false;
     }
     requestAnimationFrame(onKeyFrame);
