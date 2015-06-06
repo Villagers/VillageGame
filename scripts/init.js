@@ -94,5 +94,6 @@ function animate(){
     renderer.render(scene, camera);
     Camera.movement();
     Structure.movement();
+    Game.logic();
     requestAnimationFrame(animate);
 };
