@@ -12,7 +12,8 @@ function initialize() {
     scene.add(new THREE.AmbientLight(0xeef0ff));
     scene.add(generateLight());
     scene.add(generateGround());
-    renderer.render(scene, camera);
+
+    animate();
 }
 
 function generateLight() {
@@ -36,4 +37,52 @@ function generateBox() {
     mesh = new THREE.Mesh(geometry, material );
     mesh.position.z = -50;
     return mesh;
+}
+
+function animate(){
+    renderer.render(scene, camera);
+    cameraPhysics();
+    requestAnimationFrame(animate);
+}
+
+function cameraPhysics()
+{
+    if (Key.isDown(Key.A))      
+    {
+        camera.rotation.z += 0.1;
+    }
+    if (Key.isDown(Key.D))      
+    {
+        camera.rotation.z -= 0.1;
+    }
+    if (Key.isDown(Key.W))      
+    {
+        camera.rotation.x -= 0.1;
+    }
+    if (Key.isDown(Key.S))      
+    {
+        camera.rotation.x += 0.1;
+    }
+
+    var pc = Mouse.panCamera();
+    if (pc == Mouse.UP){
+        camera.position.y += 0.1;
+    }
+    if (pc == Mouse.DOWN){
+        camera.position.y -= 0.1;
+    }
+    if (pc == Mouse.LEFT){
+        camera.position.x -= 0.1;
+    }
+    if (pc == Mouse.RIGHT){
+        camera.position.x += 0.1;
+    }
+
+    var sc = Mouse.scrollCamera();
+    if(sc == Mouse.OUT){
+        camera.position.y -= 0.1;
+    }
+    if(sc == Mouse.IN){
+        camera.position.y += 0.1;
+    }
 }
