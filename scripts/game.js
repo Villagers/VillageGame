@@ -13,14 +13,8 @@ function initialize() {
     scene.add(generateLight());
     scene.add(generateGround());
 
-<<<<<<< HEAD
     camera.position.y = -50;
     camera.rotation.x = 150 * (Math.PI/180);
-=======
-    // camera.rotation.x = 90;
-    // camera.position.y = -50;
-    // camera.position.z = -40;
->>>>>>> 491bba217e88e57620841009562c797589b32065
 
     animate();
 }
