@@ -17,6 +17,10 @@ function initialize() {
 
     document.getElementById('gameDiv').appendChild(renderer.domElement);
 
+    // Add Light
+    scene.add(generateLight());
+    scene.add(new THREE.AmbientLight(0xffffff));
+
     var heightmap = new Image();
     heightmap.src = "resources/images/heightmap.png";
     heightmap.onload = function () {
@@ -77,19 +81,18 @@ function getHeightData(heightmapImage,scale) {
 
 function generateLight() {
     var light = new THREE.DirectionalLight(0xffffff);
-    // light.position.set( 0, 0, 0 ).normalize();
+    light.position.set( 0, 50, 0 ).normalize();
     return light;
 }
 
 
 function generateGround(heightmapImage) {
     var groundPlane = new THREE.PlaneBufferGeometry(1000, 1000, 597, 597);
-    groundPlane.dynamic = true;
+
     // Set Ground height
+    groundPlane.dynamic = true;
     var data = getHeightData(heightmapImage);
     var vertices = groundPlane.attributes.position.array;
-    console.log(vertices.length);
-    console.log(data.length);
     for (var i = 0; i < data.length; i++) {
          vertices[2 + i*3] = data[i];
     }
@@ -98,9 +101,10 @@ function generateGround(heightmapImage) {
     // Set Texture
     var groundTexture = THREE.ImageUtils.loadTexture("resources/images/grass5.jpg");
     groundTexture.wrapS = groundTexture.wrapT = THREE.RepeatWrapping;
-    groundTexture.repeat.set(10, 10);
+    groundTexture.repeat.set(100, 100);
+    groundTexture.anisotropy = renderer.getMaxAnisotropy();
 
-    var material = new THREE.MeshBasicMaterial( { map: groundTexture, side: THREE.DoubleSide } );
+    var material = new THREE.MeshPhongMaterial( { map : groundTexture } );
     var groundMesh = new THREE.Mesh(groundPlane, material);
 
     // Rotations
