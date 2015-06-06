@@ -1,32 +1,26 @@
-var Camera = {
-    movement: function() {
-        var pc = Mouse.panCamera();
-        if(pc == Mouse.UP || Key.isDown(Key.W)){
-            camera.position.z += 5;
-        }
-        if(pc == Mouse.DOWN || Key.isDown(Key.S)){
-            camera.position.z -= 5;
-        }
-        if(pc == Mouse.LEFT || Key.isDown(Key.A)){
-            camera.position.x -= 5;
-        }
-        if(pc == Mouse.RIGHT || Key.isDown(Key.D)){
-            camera.position.x += 5;
-        }
+// Camera Object
+function Camera(fov, ratio) {
+    this.view = new THREE.PerspectiveCamera(fov, window.innerWidth/window.innerHeight, 0.1, 1000);
+    this.view.position.y = -50;
+    this.view.rotation.x = 150 * (Math.PI/180);
 
-        if(Key.isDown(Key.Q)){
-            camera.rotation.y -= 0.01;
+    this.move = function(axis, delta) {
+        if (axis == 'x') {
+            this.view.position.x += delta;
+        } else if (axis == 'y') {
+            this.view.position.y += delta;
+        } else if (axis == 'z') {
+            this.view.position.z += delta;
         }
-        if(Key.isDown(Key.E)){
-            camera.rotation.y += 0.01;
-        }
+    }
 
-        var sc = Mouse.scrollCamera();
-        if(sc == Mouse.OUT){
-            camera.position.y -= 1;
+    this.rotate = function(axis, delta) {
+        if (axis == 'x') {
+            this.view.rotation.x += delta;
+        } else if (axis == 'y') {
+            this.view.rotation.y += delta;
+        } else if (axis == 'z') {
+            this.view.rotation.z += delta;
         }
-        if(sc == Mouse.IN){
-            camera.position.y += 1;
-        }
-    },
+    }
 };

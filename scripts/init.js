@@ -1,14 +1,17 @@
-
 var renderer, scene, camera;
+var gameLogic;
+var plane = null;
 
 function initSetup(){
     renderer = new THREE.WebGLRenderer({ antialias: true });
     scene = new THREE.Scene();
-    camera  = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+    camera = new Camera(75, window.innerWidth/window.innerHeight);
+    gameLogic = new GameLogic();
 
     renderer.setSize(window.innerWidth, window.innerHeight);
 
     document.getElementById('gameDiv').appendChild(renderer.domElement);
+
 
     // Add Light
     scene.add(this.generateLight());
@@ -17,16 +20,14 @@ function initSetup(){
     var heightmap = new Image();
     heightmap.src = "resources/images/heightmap.png";
     heightmap.onload = function () {
-        scene.add(generateGround(heightmap));
+        plane = generateGround(heightmap);
+        scene.add(plane);
     }
 
-    camera.position.y = -50;
-    camera.rotation.x = 150 * (Math.PI/180);
+    var building = new Structure();
+    scene.add(building.mesh);
 
-    Structure.init();
-    Structure.generate();
-
-    animate();
+    onKeyFrame();
 };
 
 function generateLight(){
@@ -90,10 +91,13 @@ function getHeightData(heightmapImage,scale) {
     return data;
 }
 
-function animate(){
-    renderer.render(scene, camera);
-    Camera.movement();
-    Structure.movement();
-    Game.logic();
-    requestAnimationFrame(animate);
+function onKeyFrame(){
+    renderer.render(scene, camera.view);
+    gameLogic.detectCameraMovement();
+    if(Mouse._leftButton) {
+        gameLogic.placeBuilding(camera.view, plane);
+        console.log('Building Placed');
+        Mouse._leftButton = false;
+    }
+    requestAnimationFrame(onKeyFrame);
 };
