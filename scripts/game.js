@@ -13,8 +13,14 @@ function initialize() {
     scene.add(generateLight());
     scene.add(generateGround());
 
+<<<<<<< HEAD
     camera.position.y = -50;
     camera.rotation.x = 150 * (Math.PI/180);
+=======
+    // camera.rotation.x = 90;
+    // camera.position.y = -50;
+    // camera.position.z = -40;
+>>>>>>> 491bba217e88e57620841009562c797589b32065
 
     animate();
 }
@@ -64,16 +70,16 @@ function cameraPhysics()
 
     var pc = Mouse.panCamera();
     if (pc == Mouse.UP){
-        camera.position.z += 0.1;
+        camera.position.z += 0.5;
     }
     if (pc == Mouse.DOWN){
-        camera.position.z -= 0.1;
+        camera.position.z -= 0.5;
     }
     if (pc == Mouse.LEFT){
-        camera.position.x -= 0.1;
+        camera.position.x -= 0.5;
     }
     if (pc == Mouse.RIGHT){
-        camera.position.x += 0.1;
+        camera.position.x += 0.5;
     }
 
     var sc = Mouse.scrollCamera();
