@@ -8,23 +8,20 @@ function GameLogic() {
         var building = new Structure();
 
         mouseVector.x = (Mouse._coords[0] / window.innerWidth) * 2 - 1;
-        mouseVector.y = (Mouse._coords[1] / window.innerHeight) * 2 + 1;
+        mouseVector.y = -(Mouse._coords[1] / window.innerHeight) * 2 + 1;
 
         raycaster.setFromCamera( mouseVector, view );
-        var objectList = new THREE.Object3D();
 
         if (plane != null) {
-            objectList.add(plane);
 
-            var intersects = raycaster.intersectObjects(objectList.children);
+            var intersects = raycaster.intersectObjects(scene.children);
             if (intersects[0] != null) {
                 var point = intersects[0].point;
-                building.move(point.x, point.y);
-            } else {
-                building.move(mouseVector.x, mouseVector.y);
+                building.move(point.x, point.y, point.z);
+                console.log('Building Placed @ ' + point.x + ', ' + point.y + ', ' + point.z);
+                scene.add(building.mesh);
             }
-            scene.add(building.mesh);
-        }
+        } 
     }
 
     this.detectCameraMovement = function() {
