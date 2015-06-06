@@ -13,6 +13,9 @@ function initialize() {
     scene.add(generateLight());
     scene.add(generateGround());
 
+    camera.position.y = -50;
+    camera.rotation.x = 150 * (Math.PI/180);
+
     animate();
 }
 
@@ -23,26 +26,18 @@ function generateLight() {
 }
 
 function generateGround() {
-    var geometry = new THREE.PlaneBufferGeometry(75, 75);
+    var geometry = new THREE.PlaneBufferGeometry(300, 300);
     var texture = THREE.ImageUtils.loadTexture("resources/images/worldmap800.jpg");
 
     var material = new THREE.MeshBasicMaterial( { map: texture, side: THREE.DoubleSide } );
     var mesh = new THREE.Mesh(geometry, material);
 
-    mesh.rotation.x = 90;
-    mesh.position.z -= 10;
-    return mesh;
-}
-
-function generateBox() {
-    var geometry = new THREE.BoxGeometry(10, 10, 10);
-    var material = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture('resources/images/crate.jpg') } );
-    mesh = new THREE.Mesh(geometry, material);
-    mesh.position.z = -50;
+    mesh.rotation.x = Math.PI/2;
     return mesh;
 }
 
 function animate(){
+
     renderer.render(scene, camera);
     cameraPhysics();
     requestAnimationFrame(animate);
@@ -69,10 +64,10 @@ function cameraPhysics()
 
     var pc = Mouse.panCamera();
     if (pc == Mouse.UP){
-        camera.position.y += 0.1;
+        camera.position.z += 0.1;
     }
     if (pc == Mouse.DOWN){
-        camera.position.y -= 0.1;
+        camera.position.z -= 0.1;
     }
     if (pc == Mouse.LEFT){
         camera.position.x -= 0.1;
@@ -83,9 +78,9 @@ function cameraPhysics()
 
     var sc = Mouse.scrollCamera();
     if(sc == Mouse.OUT){
-        camera.position.z -= 1;
+        camera.position.y -= 1;
     }
     if(sc == Mouse.IN){
-        camera.position.z += 1;
+        camera.position.y += 1;
     }
 }
