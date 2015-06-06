@@ -10,6 +10,19 @@
         <script type="text/javascript" src="scripts/structure.js"></script>
     </head>
     <body onload="initSetup()">
+        <div id="headerMenu" class="menu">
+            <div id="headerResources" >
+                <div id="resourceGold" class="resourceDiv">
+                    <img src="resources/images/goldIcon.png" class="resourceIcon" />
+                    <span id="goldAmount">0</span>
+                </div>
+            </div>
+        </div>
         <div id="gameDiv" align="center" onmousemove="Mouse.getCoords(event)"></div>
+        <div id="bottomMenu" class="menu">
+            <div id="miniMap"></div>
+            <div id="selectionMenu"></div>
+            <div id="constructionMenu"></div>
+        </div>
     </body>
 </html>
