@@ -13,6 +13,10 @@ function initialize() {
     scene.add(generateLight());
     scene.add(generateGround());
 
+    // camera.rotation.x = 90;
+    // camera.position.y = -50;
+    // camera.position.z = -40;
+
     animate();
 }
 
@@ -69,23 +73,23 @@ function cameraPhysics()
 
     var pc = Mouse.panCamera();
     if (pc == Mouse.UP){
-        camera.position.y += 0.1;
+        camera.position.z += 0.5;
     }
     if (pc == Mouse.DOWN){
-        camera.position.y -= 0.1;
+        camera.position.z -= 0.5;
     }
     if (pc == Mouse.LEFT){
-        camera.position.x -= 0.1;
+        camera.position.x -= 0.5;
     }
     if (pc == Mouse.RIGHT){
-        camera.position.x += 0.1;
+        camera.position.x += 0.5;
     }
 
     var sc = Mouse.scrollCamera();
     if(sc == Mouse.OUT){
-        camera.position.z -= 1;
+        camera.position.y -= 1;
     }
     if(sc == Mouse.IN){
-        camera.position.z += 1;
+        camera.position.y += 1;
     }
 }

@@ -50,17 +50,17 @@ var Mouse = {
 
     panCamera: function(){
         // console.log(this._coords[0]);
-        if(this._coords[1] < 1){
+        if(this._coords[1] < 10){
             return this.UP;
         }
-        if(this._coords[1] >= window.innerHeight - 1){
+        if(this._coords[1] >= window.innerHeight - 10){
             return this.DOWN;
         }
-        if(this._coords[0] < 1){
+        if(this._coords[0] < 10){
             return this.LEFT;
         }
         // console.log(window.innerWidth)
-        if(this._coords[0] >= window.innerWidth - 1){
+        if(this._coords[0] >= window.innerWidth - 10){
             return this.RIGHT;
         }
         return this.NONE;
