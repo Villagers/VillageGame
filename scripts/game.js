@@ -3,11 +3,11 @@ var renderer, scene, camera;
 
 function initialize() {
 
-    renderer = new THREE.WebGLRenderer();
+    renderer = new THREE.WebGLRenderer({ antialias: true });
     scene = new THREE.Scene();
-    camera  = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
+    camera  = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
 
-    document.getElementById('gameDiv').appendChild( renderer.domElement );
+    document.getElementById('gameDiv').appendChild(renderer.domElement);
 
     scene.add(new THREE.AmbientLight(0xeef0ff));
     scene.add(generateLight());
@@ -23,18 +23,21 @@ function generateLight() {
 }
 
 function generateGround() {
-    var geometry = new THREE.BoxGeometry( 10, 10, 10);
+    var geometry = new THREE.PlaneBufferGeometry(75, 75);
     var texture = THREE.ImageUtils.loadTexture("resources/images/worldmap800.jpg");
 
     var material = new THREE.MeshBasicMaterial( { map: texture, side: THREE.DoubleSide } );
-    var mesh = new THREE.Mesh( geometry, material );
+    var mesh = new THREE.Mesh(geometry, material);
+
+    mesh.rotation.x = 90;
+    mesh.position.z -= 10;
     return mesh;
 }
 
 function generateBox() {
-    var geometry = new THREE.BoxGeometry( 10, 10, 10);
+    var geometry = new THREE.BoxGeometry(10, 10, 10);
     var material = new THREE.MeshPhongMaterial( { map: THREE.ImageUtils.loadTexture('resources/images/crate.jpg') } );
-    mesh = new THREE.Mesh(geometry, material );
+    mesh = new THREE.Mesh(geometry, material);
     mesh.position.z = -50;
     return mesh;
 }
