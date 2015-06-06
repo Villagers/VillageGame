@@ -16,6 +16,8 @@ function initialize() {
     mouseVector = new THREE.Vector2();
     offset = new THREE.Vector3();
 
+    renderer.setSize(window.innerWidth, window.innerHeight);
+
     document.getElementById('gameDiv').appendChild(renderer.domElement);
 
     // Add Light
