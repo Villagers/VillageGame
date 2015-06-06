@@ -60,7 +60,6 @@ var Mouse = {
     },
 
     panCamera: function(){
-        // console.log(this._coords[0]);
         if(this._coords[1] < 10){
             return this.UP;
         }
