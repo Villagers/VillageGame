@@ -9,8 +9,8 @@ function initialize() {
 
     document.getElementById('gameDiv').appendChild(renderer.domElement);
 
-    scene.add(new THREE.AmbientLight(0xeef0ff));
-    scene.add(generateLight());
+    // scene.add(new THREE.AmbientLight(0xeef0ff));
+    // scene.add(generateLight());
     scene.add(generateGround());
 
     camera.position.y = -50;
@@ -21,14 +21,15 @@ function initialize() {
 
 function generateLight() {
     var light = new THREE.DirectionalLight(0xffffff);
-    light.position.set( 0, 1, 1 ).normalize();
+    // light.position.set( 0, 0, 0 ).normalize();
     return light;
 }
 
 function generateGround() {
-    var geometry = new THREE.PlaneBufferGeometry(300, 300);
-    var texture = THREE.ImageUtils.loadTexture("resources/images/worldmap800.jpg");
-
+    var geometry = new THREE.PlaneBufferGeometry(1000, 1000);
+    var texture = THREE.ImageUtils.loadTexture("resources/images/grass5.jpg");
+    texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+    texture.repeat.set(10, 10);
     var material = new THREE.MeshBasicMaterial( { map: texture, side: THREE.DoubleSide } );
     var mesh = new THREE.Mesh(geometry, material);
 
@@ -64,16 +65,16 @@ function cameraPhysics()
 
     var pc = Mouse.panCamera();
     if (pc == Mouse.UP){
-        camera.position.z += 0.5;
+        camera.position.z += 5;
     }
     if (pc == Mouse.DOWN){
-        camera.position.z -= 0.5;
+        camera.position.z -= 5;
     }
     if (pc == Mouse.LEFT){
-        camera.position.x -= 0.5;
+        camera.position.x -= 5;
     }
     if (pc == Mouse.RIGHT){
-        camera.position.x += 0.5;
+        camera.position.x += 5;
     }
 
     var sc = Mouse.scrollCamera();
