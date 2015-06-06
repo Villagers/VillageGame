@@ -1,5 +1,5 @@
 
-var renderer, scene, camera, mouseVector, raycaster;
+var renderer, scene, camera, mouseVector, raycaster, SELECTED, INTERSECTED, offset, groundMesh;
 
 var buildings, geom, range = 50;
 
@@ -14,6 +14,7 @@ function initialize() {
 
     raycaster = new THREE.Raycaster();
     mouseVector = new THREE.Vector2();
+    offset = new THREE.Vector3();
 
     document.getElementById('gameDiv').appendChild(renderer.domElement);
 
@@ -50,8 +51,7 @@ function initialize() {
 
 //return array with height data from img
 function getHeightData(heightmapImage,scale) {
-  
- if (scale == undefined) scale=1;
+    if (scale == undefined) scale=1;
   
     var canvas = document.createElement( 'canvas' );
     canvas.width = heightmapImage.width;
@@ -85,7 +85,6 @@ function generateLight() {
     return light;
 }
 
-
 function generateGround(heightmapImage) {
     var groundPlane = new THREE.PlaneBufferGeometry(1000, 1000, 597, 597);
 
@@ -112,29 +111,14 @@ function generateGround(heightmapImage) {
     return groundMesh;
 }
 
-function animate(){
-
+function animate() {
     renderer.render(scene, camera);
-    cameraPhysics();
+    cameraMovement();
+    buildingMovement();
     requestAnimationFrame(animate);
 }
 
-function cameraPhysics()
-{
-    mouseVector.x = ( Mouse._coords[0] / window.innerWidth ) * 2 - 1;
-    mouseVector.y = - ( Mouse._coords[1] / window.innerHeight ) * 2 + 1;
-
-    raycaster.setFromCamera( mouseVector, camera );
-    var intersects = raycaster.intersectObjects( buildings.children );
-
-    buildings.children.forEach(function( cube ) {
-            cube.material.color.set( 0xff0000 );
-    });
-
-    for ( var i = 0; i < intersects.length; i++ ) {
-        intersects[ i ].object.material.color.set( 0xffffff );
-    }
-
+function cameraMovement() {
     var pc = Mouse.panCamera();
     if (pc == Mouse.UP || Key.isDown(Key.W)){
         camera.position.z += 5;
@@ -156,4 +140,64 @@ function cameraPhysics()
     if(sc == Mouse.IN){
         camera.position.y += 1;
     }
+}
+
+function buildingMovement() {
+    mouseVector.x = ( Mouse._coords[0] / window.innerWidth ) * 2 - 1;
+    mouseVector.y = - ( Mouse._coords[1] / window.innerHeight ) * 2 + 1;
+
+    raycaster.setFromCamera( mouseVector, camera );
+    var intersects = raycaster.intersectObjects( buildings.children );
+
+    buildings.children.forEach(function( cube ) {
+            cube.material.color.set( 0xff0000 );
+    });
+
+    for ( var i = 0; i < intersects.length; i++ ) {
+        intersects[ i ].object.material.color.set( 0xffffff );
+    }
+
+    // if(Mouse._leftButton == true){
+    //     var vector = new THREE.Vector3( mouseVector.x, mouseVector.y, 0.5 ).unproject( camera );
+    //     raycaster = new THREE.Raycaster( camera.position, vector.sub( camera.position ).normalize() );
+    //     var intersects = raycaster.intersectObjects( buildings.children );
+    //     if ( intersects.length > 0 ) {
+    //         SELECTED = intersects[ 0 ].object;
+    //         var intersects = raycaster.intersectObject( groundMesh );
+    //         offset.copy( intersects[ 0 ].point ).sub( groundMesh.position );
+    //     }
+    // }
+    // if(Mouse._leftButton == false){
+    //     if ( INTERSECTED ) {
+    //         groundMesh.position.copy( INTERSECTED.position );
+    //         SELECTED = null;
+    //     }
+    // }
+
+    // raycaster.setFromCamera( mouseVector, camera );
+
+    // if ( SELECTED ) {
+    //     var intersects = raycaster.intersectObject( groundMesh );
+    //     SELECTED.position.copy( intersects[ 0 ].point.sub( offset ) );
+    //     return;
+    // }
+
+    // var intersects = raycaster.intersectObjects( buildings.children );
+
+    // if ( intersects.length > 0 ) {
+    //     if ( INTERSECTED != intersects[ 0 ].object ) {
+    //         if ( INTERSECTED ) {
+    //             INTERSECTED.material.color.set( 0xffffff );
+    //         }
+    //         INTERSECTED = intersects[ 0 ].object;
+    //         INTERSECTED.currentHex = INTERSECTED.material.color.getHex();
+    //         groundMesh.position.copy( INTERSECTED.position );
+    //         groundMesh.lookAt( camera.position );
+    //     }
+    // } else {
+    //     if ( INTERSECTED ){
+    //         INTERSECTED.material.color.setHex( INTERSECTED.currentHex );
+    //     } 
+    //     INTERSECTED = null;
+    // }
 }

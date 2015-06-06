@@ -1,6 +1,9 @@
 window.addEventListener('keyup', function(event) { Key.onKeyup(event); }, false);
 window.addEventListener('keydown', function(event) { Key.onKeydown(event); }, false);
 window.addEventListener('wheel', function(event) { Mouse.getDelta(event); }, false);
+window.addEventListener('mousedown', function(event) { Mouse.onDown(event); }, false );
+window.addEventListener('mouseup', function(event) { Mouse.onUp(event); }, false );
+window.addEventListener('mousemove', function(event) { Mouse.getCoords(event); }, false );
 
 var Key = {
     _pressed: {},
@@ -27,6 +30,7 @@ var Key = {
 var Mouse = {
     _coords: {},
     _delta: 0,
+    _leftButton: false,
 
     UP: 0,
     DOWN: 1,
@@ -43,9 +47,16 @@ var Mouse = {
         this._coords[1] = y;
     },
 
+    onDown: function(event){
+        this._leftButton = true;
+    },
+
+    onUp: function(event){
+        this._leftButton = false;
+    },
+
     getDelta: function(event){
         this._delta = event.wheelDelta;
-        console.log(this._delta);
     },
 
     panCamera: function(){
