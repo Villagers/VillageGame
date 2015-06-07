@@ -27,6 +27,10 @@ function initSetup(){
     var building = new Structure();
     scene.add(building.mesh);
 
+    // Resource Handler
+    var resource = new Resource();
+    setInterval(function(){resource.autoUpdate();}, 1000);
+
     onKeyFrame();
 };
 
