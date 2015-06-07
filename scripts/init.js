@@ -6,6 +6,10 @@ function initSetup() {
     core.setRenderer(window.innerWidth, window.innerHeight);
     core.appendCanvasTo(document.getElementById('gameDiv'));
 
+    // Resource Handler
+    var resource = new Resource();
+    setInterval(function(){resource.autoUpdate();}, 1000);
+
     onKeyFrame();
 }
 
