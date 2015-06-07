@@ -1,8 +1,11 @@
 // Camera Object
 function Camera(fov, ratio) {
     this.view = new THREE.PerspectiveCamera(fov, window.innerWidth/window.innerHeight, 0.1, 1000);
-    this.view.position.y = -50;
-    this.view.rotation.x = 150 * (Math.PI/180);
+
+    this.useBuildCamera = function() {
+        this.view.position.y = -50;
+        this.view.rotation.x = 150 * (Math.PI/180);
+    }
 
     this.move = function(axis, delta) {
         if (axis == 'x') {
