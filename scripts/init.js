@@ -10,6 +10,26 @@ function initSetup() {
     var resource = new Resource();
     setInterval(function(){resource.autoUpdate();}, 1000);
 
+    // Menu Handler
+    var menu = new Menu();
+    menu.addItem(CONSTRUCTION, LUMBERMILL);
+    menu.addItem(CONSTRUCTION, TOWNHALL);
+        menu.addItem(CONSTRUCTION, LUMBERMILL);
+    menu.addItem(CONSTRUCTION, TOWNHALL);
+        menu.addItem(CONSTRUCTION, LUMBERMILL);
+    menu.addItem(CONSTRUCTION, TOWNHALL);
+        menu.addItem(CONSTRUCTION, LUMBERMILL);
+    menu.addItem(CONSTRUCTION, TOWNHALL);
+        menu.addItem(CONSTRUCTION, LUMBERMILL);
+    menu.addItem(CONSTRUCTION, TOWNHALL);
+        menu.addItem(CONSTRUCTION, LUMBERMILL);
+    menu.addItem(CONSTRUCTION, TOWNHALL);
+    menu.removeItem(CONSTRUCTION, LUMBERMILL);
+
+    console.log(menu.construction.items);
+
+
+
     onKeyFrame();
 }
 
