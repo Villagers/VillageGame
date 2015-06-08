@@ -6,11 +6,31 @@ function initSetup() {
     core.setRenderer(window.innerWidth, window.innerHeight);
     core.appendCanvasTo(document.getElementById('gameDiv'));
 
+    //Render
+    core.render();
+
     // Resource Handler
     var resource = new Resource();
     setInterval(function(){resource.autoUpdate();}, 1000);
+    // Menu Handler
+    var menu = new Menu();
+    menu.addItem(CONSTRUCTION, LUMBERMILL);
+    menu.addItem(CONSTRUCTION, TOWNHALL);
+        menu.addItem(CONSTRUCTION, LUMBERMILL);
+    menu.addItem(CONSTRUCTION, TOWNHALL);
+        menu.addItem(CONSTRUCTION, LUMBERMILL);
+    menu.addItem(CONSTRUCTION, TOWNHALL);
+        menu.addItem(CONSTRUCTION, LUMBERMILL);
+    menu.addItem(CONSTRUCTION, TOWNHALL);
+        menu.addItem(CONSTRUCTION, LUMBERMILL);
+    menu.addItem(CONSTRUCTION, TOWNHALL);
+        menu.addItem(CONSTRUCTION, LUMBERMILL);
+    menu.addItem(CONSTRUCTION, TOWNHALL);
+    menu.removeItem(CONSTRUCTION, LUMBERMILL);
 
-    core.render();
+    console.log(menu.construction.items);
+
+    // Initiate Loop
     onKeyFrame();
 }
 
