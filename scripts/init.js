@@ -10,16 +10,17 @@ function initSetup() {
     var resource = new Resource();
     setInterval(function(){resource.autoUpdate();}, 1000);
 
+    core.render();
     onKeyFrame();
 }
 
 function onKeyFrame(){
-    core.render();
-    core.detectCameraMovement();
     if(Mouse._leftButton) {
         var building = new Structure();
         core.placeStructure(building);
+        core.render();
         Mouse._leftButton = false;
-    }
+    } 
     requestAnimationFrame(onKeyFrame);
+    core.detectCameraMovement();
 };

@@ -63,7 +63,5 @@ function Resource(){
         this.wood += this.woodPerSec;
         this.food += this.foodPerSec;
         this.stone += this.stonePerSec;
-        console.log("Gold: " + this.gold + " Wood: " + this.wood + " Food: " + this.food + " Stone: " + this.stone);
-        console.log("Population: " + this.populationCurrent + "/" + this.populationCap);
     }
 }

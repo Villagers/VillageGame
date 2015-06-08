@@ -29,7 +29,7 @@ function Terrain() {
     function initializeScene() {
         var scene = new THREE.Scene();
         scene.add(generateLight());
-        scene.add(new THREE.AmbientLight(0xffffff));
+        //scene.add(new THREE.AmbientLight(0xffffff));
 
         // Generate plane using heightmap image
         var heightmap = new Image();
@@ -69,7 +69,7 @@ function Terrain() {
         var groundMesh = new THREE.Mesh(groundPlane, material);
 
         // Rotations
-        groundMesh.rotation.x = Math.PI/2;
+        groundMesh.rotation.x = -90 * (Math.PI/180);
         return groundMesh;
     }
 
